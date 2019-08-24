@@ -1,0 +1,50 @@
+﻿@model SurveyApplication.AnswerTable
+
+@{
+    ViewBag.Title = "AnswerResponse";
+}
+
+<h2>AnswerResponse</h2>
+
+<div>
+    <h4>AnswerTable</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SelectedAnswer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SelectedAnswer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QuestionTable.Question)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuestionTable.Question)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SurveyTable.Survey_Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SurveyTable.Survey_Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Registration.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Registration.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Answer_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

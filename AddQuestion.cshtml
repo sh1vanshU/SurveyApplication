@@ -1,0 +1,54 @@
+﻿@using System.Web.Mvc.Html;
+@model SurveyApplication.Models.AddQuestionViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddQuestion</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <h1>@ViewBag.msg</h1>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Survey_ID, "Survey Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Survey_ID,(IEnumerable<SelectListItem>)ViewData["DBMySkills"] )
+                    @Html.HiddenFor(Model => Model.Survey_ID)
+                    @Html.ValidationMessageFor(model => model.Survey_ID, "", new { @class = "text-danger" })
+                </div>
+                <hr />
+                <h4 style="margin-left:20%">SURVEY QUESTION</h4>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Question, "Question", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Question, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Question, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="SUBMIT" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+        <div>
+
+            <div>
+                @Html.ActionLink("Back to List", "SurveySelection")
+            </div>
+
+        </div>
+</body>
+</html>
