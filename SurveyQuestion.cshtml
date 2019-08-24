@@ -1,0 +1,79 @@
+﻿@model  SurveyApplication.Models.QuestionItem
+@{
+    ViewBag.Title = "Show Surevy Questions";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SurveyQuestion</title>
+</head>
+<body>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <form id="myForm">
+        <h2>ONLINE SURVEY SYSTEM</h2>
+        <table>
+            @foreach (var item in Model.ListQuestionModel)
+            {
+                <tr>
+                    <td>@item.Question_ID --@item.Question</td>
+                    <td>@Html.Hidden("Question_ID", item.Question_ID)</td>
+                    <td>@Html.Hidden("Question", item.Question)</td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.RadioButton(item.Question_ID.ToString(), "1")
+                        @Html.Label("Yes")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.RadioButton(item.Question_ID.ToString(), "2")
+                        @Html.Label("No")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.RadioButton(item.Question_ID.ToString(), "3")
+                        @Html.Label("Can't Say")
+                    </td>
+                </tr>
+
+            }
+        </table>
+        <input type="submit" value="Submit" class="form-control" id="btnSubmit" />
+
+    </form>
+
+    <script>
+        $(document).ready(function () {
+            $("#btnSubmit").click(function () {
+                var data = JSON.stringify(getFormData($('#myForm')));
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/SurveyQuestion",
+                    contentType: "application/json",
+                    data:  data ,
+                    success: function (data) {
+                        alert("You are done here")
+                    }
+                });
+            })
+
+        })
+        function getFormData($form) {
+            var formData = $('#myForm').serializeArray();
+            let questionList = [];
+            for (let i = 0; i < formData.length; i = i + 3) {
+                var question = {
+                    "Question_ID": formData[i].value,
+                    "Question": formData[i + 1].value,
+                    "SelectedAnswer": formData[i + 2].value
+                }
+                questionList.push(question)
+            }
+           return questionList;
+        }
+    </script>
+</body>
+</html>
